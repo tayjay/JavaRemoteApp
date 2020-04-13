@@ -1,5 +1,7 @@
 package ca.tayjay.javaremoteapp.ui;
 
+import ca.tayjay.javaremoteapp.util.ImageCapture;
+import com.sun.jna.platform.WindowUtils;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,6 +16,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class OutputWindow extends Application {
@@ -41,11 +44,19 @@ public class OutputWindow extends Application {
 
     protected ImageView screenshot() throws AWTException, IOException {
         Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-        BufferedImage captureFull = new Robot().createScreenCapture(screenRect);
+        Rectangle windowRect = new Rectangle(0, 0, 0, 0);
+        WindowUtils.getAllWindows(false).forEach(desktopWindow -> {
+            if (desktopWindow.getTitle().contains("Notepad")) {
+
+                windowRect.setRect(desktopWindow.getLocAndSize());
+            }
+        });
+        BufferedImage captureFull = new Robot().createScreenCapture(windowRect);
         BufferedImage capture = scaleImage(captureFull);
         ImageView imageView = new ImageView();
-        Image image = convertToFxImage(capture);
+        Image image = convertToFxImage(captureFull);
         imageView.setImage(image);
+
         return imageView;
     }
 

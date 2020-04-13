@@ -2,6 +2,7 @@ package ca.tayjay.javaremoteapp;
 
 
 
+import ca.tayjay.javaremoteapp.ui.ScreenCapture;
 import ca.tayjay.javaremoteapp.util.GDI32Extra;
 import ca.tayjay.javaremoteapp.util.ImageCapture;
 import ca.tayjay.javaremoteapp.util.User32Extra;
@@ -54,12 +55,18 @@ public class JavaRemoteApp {
         WinDef.RECT bounds = new WinDef.RECT();
         User32Extra.INSTANCE.GetClientRect(hWnd, bounds);*/
 
-        Robot robot = new Robot();
+        /*Robot robot = new Robot();
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Rectangle screenbounds = new Rectangle(toolkit.getScreenSize());
 
+
+
         BufferedImage image = robot.createScreenCapture(screenbounds);
-        ImageIO.write(image, "png", new File("C:\\temp\\image.png"));
+        ImageIO.write(image, "png", new File("C:\\temp\\image.png"));*/
+
+        ScreenCapture screen = new ScreenCapture();
+
+
 
 
     }
